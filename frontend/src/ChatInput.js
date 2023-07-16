@@ -15,6 +15,7 @@ const useStyles = makeStyles(theme => ({
   inputField: {
     flex: 1,
     marginRight: theme.spacing(2),
+    // maxWidth: '300px',
   },
 }));
 
@@ -37,6 +38,7 @@ function ChatInput({ input, setInput, handleSendMessage, conversationId, message
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Send a message"
+          multiline
         />
         <IconButton color="primary" type="submit">
           <SendIcon />
