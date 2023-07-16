@@ -2,6 +2,7 @@
 
 ## docker-compose
 
+Run containers:
 
 ````bash
 
@@ -16,5 +17,18 @@ or in detached mode:
 docker compose up -d
 
 ````
+Stop containers:
 
+````bash
 
+docker compose down (or Ctl + C if not running in detached mode)
+
+````
+
+or down and remove volumes (clears Redis data), even after Ctrl + C has been pressed in non-detached mode.
+
+````bash
+
+docker compose down --volumes
+
+````
