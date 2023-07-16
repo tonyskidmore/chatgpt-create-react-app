@@ -4,7 +4,7 @@ services:
   web:
     container_name: frontend
     hostname: frontend
-    image: ghcr.io/tonyskidmore/chatgpt-create-react-app:frontend
+    image: ghcr.io/tonyskidmore/chatgpt-create-react-app/frontend:latest
     ports:
       - "3000:80"
     environment:
@@ -15,7 +15,7 @@ services:
   api:
     container_name: backend
     hostname: backend
-    image: ghcr.io/tonyskidmore/chatgpt-create-react-app:backend
+    image: ghcr.io/tonyskidmore/chatgpt-create-react-app/backend:latest
     ports:
       - "8000:8000"
     environment:
