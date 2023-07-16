@@ -1,0 +1,6 @@
+fastapi==0.99.0
+langchain==0.0.225
+openai==0.27.8
+pydantic==1.10.10
+redis==4.6.0
+uvicorn==0.22.0

@@ -7,6 +7,8 @@ on:
     branches:
       - main
   workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * 6"
 
 jobs:
   build-containers:
@@ -19,16 +21,33 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: List build context directory
+        run: |
+          set -ex
+          pwd
+          ls -al
+          ls -al frontend
+          ls -al backend
+
       - name: Build and push frontend container
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v4
         with:
           context: ./frontend
+          file: ./frontend/Dockerfile
           push: true
           tags: ghcr.io/${{ github.repository }}/frontend:latest
 
       - name: Build and push backend container
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v4
         with:
           context: ./backend
+          file: ./backend/Dockerfile
           push: true
           tags: ghcr.io/${{ github.repository }}/backend:latest
