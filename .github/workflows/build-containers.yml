@@ -34,13 +34,15 @@ jobs:
       - name: Build and push frontend container
         uses: docker/build-push-action@v4
         with:
-          context: ./backend/Dockerfile
+          context: ./frontend
+          file: ./Dockerfile
           push: true
           tags: ghcr.io/${{ github.repository }}/frontend:latest
 
       - name: Build and push backend container
         uses: docker/build-push-action@v4
         with:
-          context: ./backend/Dockerfile
+          context: ./backend
+          file: ./Dockerfile
           push: true
           tags: ghcr.io/${{ github.repository }}/backend:latest
