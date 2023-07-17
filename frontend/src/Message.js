@@ -34,7 +34,7 @@ function Message({ message }) {
     <Paper className={`${message.sender === 'user' ? classes.userMessage : classes.chatGptMessage}`}>
       <Box className={classes.messageContainer}> 
         <ReactMarkdown className={classes.markdownBody} remarkPlugins={[remarkGfm]} 
-          children={(message.sender === 'user' ? '**User:** ' : '**AI:** ') + message.text} 
+          children={(message.sender === 'user' ? '**User:** ' : '**Agent:**  \n') + message.text} 
         />
       </Box>
     </Paper>
