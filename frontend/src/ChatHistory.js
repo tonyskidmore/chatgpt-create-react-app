@@ -66,7 +66,7 @@ function ChatHistory({ onSelectConversation, apiUrl, drawerOpen, setDrawerOpen }
           onClose={() => setDrawerOpen(false)}>
           <List component="nav" aria-label="main mailbox folders">
             {conversations.map((conversation) => (
-              <ListItem button onClick={() => handleClick(conversation)}>
+              <ListItem button onClick={() => handleClick(conversation)} key={conversation.conversationId}>
                 <ListItemText primary={conversation.name} />
               </ListItem>
             ))}
