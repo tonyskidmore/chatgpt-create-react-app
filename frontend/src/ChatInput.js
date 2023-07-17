@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, TextField, IconButton, InputLabel, makeStyles } from '@material-ui/core';
+import { Box, TextField, IconButton, InputLabel, Tooltip, makeStyles } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
 
 const useStyles = makeStyles(theme => ({
@@ -10,41 +10,48 @@ const useStyles = makeStyles(theme => ({
   },
   inputArea: {
     display: 'flex',
+    justifyContent: 'center',
     padding: theme.spacing(2),
+    flexWrap: 'wrap',
   },
   inputField: {
     flex: 1,
     marginRight: theme.spacing(2),
-    // maxWidth: '300px',
+    maxWidth: '80%',
   },
 }));
 
 function ChatInput({ input, setInput, handleSendMessage, conversationId, messages,  }) {
   const classes = useStyles();
 
-  return (
-    <form onSubmit={(event) => {
-      event.preventDefault();
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
       if (input !== '') {
-        console.log(`ChatInput messages: ${JSON.stringify(messages)}`);
         handleSendMessage(input, messages, conversationId);
+        setInput('');
       }
-    }}>
-      <Box className={classes.inputArea}>
-        <InputLabel htmlFor="user-input"></InputLabel>
-        <TextField
-          id="user-input"
-          className={classes.inputField}
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder="Send a message"
-          multiline
-        />
+    }
+  };
+
+  return (
+    <Box className={classes.inputArea}>
+      <InputLabel htmlFor="user-input"></InputLabel>
+      <TextField
+        id="user-input"
+        className={classes.inputField}
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+        onKeyDown={handleKeyDown}
+        placeholder="Send a message"
+        multiline
+      />
+      <Tooltip title="Send">
         <IconButton color="primary" type="submit">
           <SendIcon />
         </IconButton>
-      </Box>
-    </form>
+      </Tooltip>
+    </Box>
   );
 }
 

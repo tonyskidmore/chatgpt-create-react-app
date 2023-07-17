@@ -21,7 +21,7 @@ function ChatAppBar({ onClearChat, onSaveChat, onShowHistory }) {
     <AppBar position="static">
       <Toolbar>
         <Typography variant="h6" className={classes.title}>
-          Private ChatGPT
+          ChatGPT App
         </Typography>
         <Button color="inherit" className={classes.clearButton} onClick={onClearChat}>
           Clear Chat
