@@ -6,7 +6,7 @@ Run containers:
 
 ````bash
 
-docker compose up
+docker compose up --pull always
 
 ````
 
@@ -14,7 +14,7 @@ or in detached mode:
 
 ````bash
 
-docker compose up -d
+docker compose up --pull always --detach
 
 ````
 Stop containers:
