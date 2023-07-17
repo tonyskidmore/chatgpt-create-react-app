@@ -32,3 +32,11 @@ or down and remove volumes (clears Redis data), even after Ctrl + C has been pre
 docker compose down --volumes
 
 ````
+
+Remove stopped containers
+
+````bash
+
+docker compose rm --force
+
+````
