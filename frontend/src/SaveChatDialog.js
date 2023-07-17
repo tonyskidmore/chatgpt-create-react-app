@@ -28,33 +28,15 @@ function SaveChatDialog({ dialogOpen, setDialogOpen, apiUrl, conversationId, onS
         }
       }
            
-        //   if(response.ok) {
-        //     setDialogOpen(false);
-        //     setEnteredName('');
-        //     if (onSave) {
-        //       onSave();
-        //     }
-        // setDialogOpen(false);
-        // setEnteredName('');
-        // // setFetchFlag(prev => !prev);
-        // if (reloadChatHistory) {
-        //     reloadChatHistory();
-        //     setReloadChatHistory(null);
-        // }
-    //   }
-
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      // If the response is okay, close the dialog and clear the entered name
       setDialogOpen(false);
       setEnteredName('');
 
     } catch (error) {
       console.error('Failed to save chat:', error);
-      // Here you might want to set an error state variable
-      // to display an error message to the user
     }
   };
 

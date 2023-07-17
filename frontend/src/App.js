@@ -32,9 +32,7 @@ function App() {
   const [alert, setAlert] = useState({ open: false, message: '' });
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
-  // const [fetchFlag, setFetchFlag] = useState(false);
   const [, setDisplayDrawer] = useState(false);
-  // const [reloadChatHistory, setReloadChatHistory] = useState(null);
   const apiUrl = process.env.REACT_APP_API_URL === undefined ? window.REACT_APP_API_URL : process.env.REACT_APP_API_URL;
 
   useEffect(() => {
@@ -130,7 +128,6 @@ function App() {
         drawerOpen={drawerOpen} 
         setDrawerOpen={setDrawerOpen}
         classes={classes}
-        // fetchFlag={fetchFlag}
       />
       <SaveChatDialog 
         dialogOpen={dialogOpen} 
@@ -138,22 +135,9 @@ function App() {
         apiUrl={apiUrl}
         conversationId={conversationId}
         onSave={() => {
-          // setFetchFlag((prev) => !prev);
           setDisplayDrawer(true);
         }}
       />
-      {/* <SaveChatDialog 
-        dialogOpen={dialogOpen} 
-        setDialogOpen={setDialogOpen} 
-        apiUrl={apiUrl}
-        conversationId={conversationId}
-        onSave={() => {
-          setFetchFlag(prev => !prev);
-          // setDrawerOpen(true);
-        }}
-        // fetchFlag={fetchFlag}
-        // setFetchFlag={setFetchFlag}
-      /> */}
       {isRetrying && <LinearProgress />}
     </Box>
   );
