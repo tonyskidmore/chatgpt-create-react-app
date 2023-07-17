@@ -1,27 +1,31 @@
-// ChatHistory.js
 import React, { useEffect, useState } from 'react';
-import { List, ListItem, ListItemText, Drawer, makeStyles } from '@material-ui/core';
+import { List, ListItem, ListItemText, Drawer, Typography, makeStyles, Tooltip } from '@material-ui/core';
+
+const drawerWidth = 250;
 
 const useStyles = makeStyles(theme => ({
   drawer: {
-    width: '250px',
-    flexShrink: 0,
+    width: drawerWidth,
   },
   drawerPaper: {
-    width: '250px',
-    backgroundColor: '#f5f5f5'
-  }
+    width: drawerWidth,
+    padding: theme.spacing(1),
+  },
+  listItem: {
+    '&:hover': {
+      backgroundColor: '#e0e0e0',
+    },
+  },
+  listItemText: {
+    whiteSpace: 'nowrap',
+  },
 }));
 
-// , fetchFlag
 function ChatHistory({ onSelectConversation, apiUrl, drawerOpen, setDrawerOpen }) {
   const classes = useStyles();
   const [conversations, setConversations] = useState([]);
   const [error, setError] = useState(null);
-
-  // console.log(`ChatHistory - fetchFlag: ${fetchFlag}`);
-  console.log(`ChatHistory - drawerOpen: ${drawerOpen}`);
-  console.log(`ChatHistory - apiUrl: ${apiUrl}`);
+  const [tooltipTitle, setTooltipTitle] = useState('');
 
   useEffect(() => {
     const fetchConversations = async () => {
@@ -36,7 +40,6 @@ function ChatHistory({ onSelectConversation, apiUrl, drawerOpen, setDrawerOpen }
         const conversationsArray = Object.entries(data.conversations).map(([conversationId, name]) => ({ conversationId, name }));
 
         setConversations(conversationsArray);
-        console.log(`ChatHistory - conversationsArray: ${JSON.stringify(conversationsArray)}`);
       } catch (error) {
         setError(error);
       }
@@ -45,37 +48,57 @@ function ChatHistory({ onSelectConversation, apiUrl, drawerOpen, setDrawerOpen }
     if (drawerOpen) {
       fetchConversations();
     }
-    }, [apiUrl, drawerOpen]);
-    // , fetchFlag
+  }, [apiUrl, drawerOpen]);
 
   const handleClick = (conversation) => {
     onSelectConversation(conversation.conversationId);
+  };
+
+  const handleMouseEnter = (e, name) => {
+    const target = e.target;
+
+    if (target.offsetWidth < target.scrollWidth) {
+      setTooltipTitle(name);
+    } else {
+      setTooltipTitle('');
+    }
   };
 
   if (error) {
     return <div>Error: {error.message}</div>;
   } else {
     return (
-      // conversations.length > 0 && (
-        <Drawer
-          className={classes.drawer}
-          classes={{
-            paper: classes.drawerPaper,
-          }}
-          open={drawerOpen} 
-          onClose={() => setDrawerOpen(false)}>
-          <List component="nav" aria-label="main mailbox folders">
-            {conversations.map((conversation) => (
-              <ListItem button onClick={() => handleClick(conversation)} key={conversation.conversationId}>
-                <ListItemText primary={conversation.name} />
-              </ListItem>
-            ))}
-          </List>
-        </Drawer>
-      // )
+      <Drawer
+        className={classes.drawer}
+        classes={{
+          paper: classes.drawerPaper,
+        }}
+        open={drawerOpen} 
+        onClose={() => setDrawerOpen(false)}
+      >
+        <List component="nav" aria-label="main mailbox folders">
+          {conversations.map((conversation) => (
+            <ListItem 
+              button 
+              onClick={() => handleClick(conversation)} 
+              key={conversation.conversationId}
+            >
+              <Tooltip title={tooltipTitle} placement="right">
+                <ListItemText
+                  className={classes.listItemText}
+                  primary={
+                    <Typography noWrap onMouseEnter={(e) => handleMouseEnter(e, conversation.name)}>
+                      {conversation.name}
+                    </Typography>
+                  }
+                />
+              </Tooltip>
+            </ListItem>
+          ))}
+        </List>
+      </Drawer>
     );
   }
 }
 
 export default ChatHistory;
-// export default React.memo(ChatHistory);
