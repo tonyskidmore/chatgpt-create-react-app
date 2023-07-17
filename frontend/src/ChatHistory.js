@@ -78,3 +78,4 @@ function ChatHistory({ onSelectConversation, apiUrl, drawerOpen, setDrawerOpen }
 }
 
 export default ChatHistory;
+// export default React.memo(ChatHistory);

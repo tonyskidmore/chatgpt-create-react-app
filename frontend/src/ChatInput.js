@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, TextField, IconButton, InputLabel, Tooltip, makeStyles } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
 
@@ -21,37 +21,52 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function ChatInput({ input, setInput, handleSendMessage, conversationId, messages,  }) {
+
+function ChatInput({ handleSendMessage, conversationId, messages }) {
   const classes = useStyles();
+  const [input, setInput] = useState('');
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
-      if (input !== '') {
-        handleSendMessage(input, messages, conversationId);
-        setInput('');
-      }
+      handleSubmit();
+    }
+  };
+
+  const handleSubmit = () => {
+    if (input.trim() !== '') {
+      handleSendMessage(input, messages, conversationId);
+      setInput('');
     }
   };
 
   return (
-    <Box className={classes.inputArea}>
-      <InputLabel htmlFor="user-input"></InputLabel>
-      <TextField
-        id="user-input"
-        className={classes.inputField}
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        onKeyDown={handleKeyDown}
-        placeholder="Send a message"
-        multiline
-      />
-      <Tooltip title="Send">
-        <IconButton color="primary" type="submit">
-          <SendIcon />
-        </IconButton>
-      </Tooltip>
-    </Box>
+    <form onSubmit={(event) => {
+      event.preventDefault();
+      if (input.trim() !== '') {
+        console.log(`ChatInput messages: ${JSON.stringify(messages)}`);
+        handleSendMessage(input, messages, conversationId);
+        setInput('');
+      }
+    }}>
+      <Box className={classes.inputArea}>
+        <InputLabel htmlFor="user-input"></InputLabel>
+        <TextField
+          id="user-input"
+          className={classes.inputField}
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyDown={handleKeyDown}
+          placeholder="Send a message"
+          multiline
+        />
+        <Tooltip title="Send">
+          <IconButton color="primary" type="submit">
+            <SendIcon />
+          </IconButton>
+        </Tooltip>
+      </Box>
+    </form>
   );
 }
 
