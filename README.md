@@ -2,6 +2,8 @@
 
 1. [Overview](#overview)
 2. [Quick Start](#quick-start)
+   * [Clone the repository](#clone-the-repository)
+   * [OpenAI API key](#openai-api-key)
    * [docker compose](#docker-compose)
 3. [Redis](#redis)
 
@@ -34,15 +36,28 @@ There are 4 containers that make up the example app in this repo:
 The quickest method of running the application is using [Docker Compose](https://docs.docker.com/compose/).  The app was written and tested on a Windows 11 system using Windows Subsystem for Linux with Docker Desktop, and the instructions below use the [Compose V2](https://docs.docker.com/compose/migrate/) format.  
 
 
-### docker compose
+### Clone the repository
 
-The first thing that must be done is to export your OpenAI API Key:
+Clone the repository locally:
 
 ````bash
 
-export OPENAI_API_KEY="<your-key-goes-here>"
+git clone https://github.com/tonyskidmore/chatgpt-create-react-app.git
+cd chatgpt-create-react-app
 
 ````
+
+### OpenAI API key
+
+Export your OpenAI API Key:
+
+````bash
+
+ export OPENAI_API_KEY="<your-key-goes-here>"
+
+````
+
+### docker compose
 
 Run all containers in detached mode:
 
