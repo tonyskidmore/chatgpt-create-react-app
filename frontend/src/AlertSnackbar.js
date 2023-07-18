@@ -2,8 +2,6 @@ import React from 'react';
 import { Snackbar, IconButton, makeStyles } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 
-// useStyles removed for brevity...
-
 const useStyles = makeStyles(theme => ({
   close: {
     padding: theme.spacing(0.5),

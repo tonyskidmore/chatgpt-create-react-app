@@ -1,12 +1,7 @@
 export const SEND_URL_ERROR_MESSAGE = "REACT_APP_API_URL is not defined. Please set it in the environment variables.";
 
-// export const sendMessageToApi = async (userMessage, apiUrl, maxRetries, delayMS, chatHistory) => {
-// export const sendMessageToApi = async (userMessage, apiUrl, maxRetries, delayMS) => {
 export const sendMessageToApi = async (userMessage, apiUrl, maxRetries, delayMS, conversationId, chatHistory) => {
   if (apiUrl === undefined || apiUrl === '') {
-    // alert(SEND_URL_ERROR_MESSAGE);
-    // setAlert({ open: true, message: SEND_URL_ERROR_MESSAGE});
-    // return false;
     throw new Error(SEND_URL_ERROR_MESSAGE);
   }
 
@@ -17,11 +12,9 @@ export const sendMessageToApi = async (userMessage, apiUrl, maxRetries, delayMS,
     headers: {
       'Content-Type': 'application/json',
     },
-    // body: JSON.stringify({ text: userMessage, sender: 'user', chatHistory: chatHistory }),
     body: JSON.stringify({ text: userMessage, sender: 'user', conversationId: conversationId, chatHistory: chatHistory }),
   }, maxRetries, delayMS);
 
-  // return response;
   return { text: response.text, sender: response.sender };
 };
 
