@@ -36,6 +36,14 @@ The quickest method of running the application is using [Docker Compose](https:/
 
 ### docker compose
 
+The first thing that must be done is to export your OpenAI API Key:
+
+````bash
+
+export OPENAI_API_KEY="<your-key-goes-here>"
+
+````
+
 Run all containers in detached mode:
 
 ````bash
